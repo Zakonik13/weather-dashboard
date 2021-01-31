@@ -19,6 +19,7 @@ let formHandler = function(event) {
         getCityForecast(cityName);
         $("#saved-cities").empty();
         saveCityName(cityName);
+        theClick();
         cityNameInput.value = "";
     } else {
         alert("Please enter a city name.");
@@ -115,27 +116,49 @@ let saveCityName = function(cityName) {
     
     cityArray.push(cityName);
     console.log(cityArray)
-    localStorage.setItem("cities", cityArray);
+    localStorage.setItem("cities", JSON.stringify(cityArray));
     restoreCityName();
 }
 
 let restoreCityName = function() {
 
     
-    let history = localStorage.getItem("cities");
+    let history = JSON.parse(localStorage.getItem("cities"));
     console.log(history)
 
     for (i = 0; i < history.length; i++) {
+    
         if (history[i]) {
-            newEl = document.createElement("a");
-            newEl.innerHTML = '<a href="#" class="history">' + history[i] + '</a>';
+            newEl = document.createElement("div");
+            newEl.innerHTML = '<p class="history">' + history[i] + '</p><br>';
             document.querySelector(".saved-cities").appendChild(newEl);
         }
-        
     }
+}
+
+let theClick = function() {
+    document.querySelector(".history").addEventListener("click", anchorFunction);
+}
+
+let anchorFunction = function() {
+    let anchor = document.querySelector(".history").value;
+    getCityForecastAgain(anchor);
+    console.log(anchor)
     
 }
 
+let getCityForecastAgain = function(anchor) {
+    
+    // format the url
+    let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + anchor + "&appid=407e110314c7d9e3802fdaecbeccde6f";
+    // make a request to the url
+    fetch(apiUrl).then(function(response) {
+        return response.json()
+    }).then(function(data) {
+        assignForecastData(data);
+        getUVIndex(data);
+    });
+}
 
 
 function defaultCity() {
@@ -143,8 +166,9 @@ function defaultCity() {
     getCityForecast(cityName);
     cityName = "";
 }
-defaultCity();
 
+defaultCity();
+restoreCityName();
 submitBtn.addEventListener("click", formHandler);
 
 

@@ -85,6 +85,15 @@ header {
     height: 150px;
 }
 
+.history {
+    text-decoration: none;
+    color: #808080;
+}
+
+.history:hover {
+    color: #2ed63c;
+}
+
 @media only screen and (max-width: 1200px) {
     body {
         width: 100%;
