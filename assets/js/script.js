@@ -2,6 +2,8 @@
 let cityNameInput = document.getElementById("city-name");
 let submitBtn = document.getElementById("submit");
 let days = document.getElementById("five-days");
+let cityArray = [];
+let savedCities = document.querySelector("#saved-cities");
 
 // Capture search data from user with form handler
 let formHandler = function(event) {
@@ -15,6 +17,8 @@ let formHandler = function(event) {
 
     if (cityName) {
         getCityForecast(cityName);
+        $("#saved-cities").empty();
+        saveCityName(cityName);
         cityNameInput.value = "";
     } else {
         alert("Please enter a city name.");
@@ -32,7 +36,6 @@ let getCityForecast = function(cityName) {
     }).then(function(data) {
         assignForecastData(data);
         getUVIndex(data);
-        console.log(data);
     });
 }
 
@@ -91,11 +94,12 @@ let getFiveDays = function(data) {
 
         if(data.list[i].dt_txt.endsWith("12:00:00")) {
             
-            var fiveDays = document.createElement("div");
+            let oneDay = data.list[i].dt_txt;
+            let fiveDays = document.createElement("div");
             fiveDays.classList.add("col-2")
 
             fiveDays.innerHTML = 
-            '<div><h6>' + moment().format("MMMM Do YYYY") +
+            '<div class="col-2 five-day"><h6>' + moment(oneDay).format("ddd") +
             '</h6><h6>' + "<img src='http://openweathermap.org/img/w/" +
             data.list[i].weather[0].icon + ".png' alt='Icon depicting current weather.'>" +
             '</h6><h6>' + "Temp: " + Math.floor((data.list[i].main.temp - 273) * 9 / 5 + 32) +
@@ -105,7 +109,33 @@ let getFiveDays = function(data) {
         }
     }
 }
+
 // Search history click pulls up info same as entering city in search bar
+let saveCityName = function(cityName) {
+    
+    cityArray.push(cityName);
+    console.log(cityArray)
+    localStorage.setItem("cities", cityArray);
+    restoreCityName();
+}
+
+let restoreCityName = function() {
+
+    
+    let history = localStorage.getItem("cities");
+    console.log(history)
+
+    for (i = 0; i < history.length; i++) {
+        if (history[i]) {
+            newEl = document.createElement("a");
+            newEl.innerHTML = '<a href="#" class="history">' + history[i] + '</a>';
+            document.querySelector(".saved-cities").appendChild(newEl);
+        }
+        
+    }
+    
+}
+
 
 
 function defaultCity() {
@@ -116,3 +146,6 @@ function defaultCity() {
 defaultCity();
 
 submitBtn.addEventListener("click", formHandler);
+
+
+

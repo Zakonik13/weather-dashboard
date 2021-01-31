@@ -12,34 +12,54 @@
     <header>
         <h1>Weather Dashboard</h1>
     </header>
-    <main class="container">
-        <div class="col-4 left">
+    <main class="container main">
+        <div class="col-sm-4 left">
             <form class="user-form">
                 <label><b>Search by City:</b></label><br>
                 <input type="text" id="city-name" placeholder="City Name">
                 <button type="submit" id="submit" class="btn">Search</button>
             </form>
+            <div class="saved-cities" id="saved-cities">
+                <a href="#" id="a"></a>
+                <a href="#" id="b"></a>
+                <a href="#" id="c"></a>
+                <a href="#" id="d"></a>
+                <a href="#" id="e"></a>
+                <a href="#" id="f"></a>
+                <a href="#" id="g"></a>
+                <a href="#" id="h"></a>
+                <a href="#" id="i"></a>
+                <a href="#" id="j"></a>
+            </div>
         </div>
-        <div class="col-8 right">
+        <div class="col-sm-8 right">
             <div class="row more" id="current">
                 <div class="city-icon">
-                    <h2 id="city"></h3>
+                    <h2 id="city"></h2>
                     <p class="icon" ></p>
                 </div>
-                <h6 id="time"></h6>
-                <h5 id="temp"></h5>
-                <h5 id="humidity"></h5>
-                <h5 id="wind-speed"></h5>
-                <div class="uv">
-                    <h5 id="index-text"></h5>
-                    <p id="uv-index"></p>
+                <div class="row small">
+                    <div class="other">
+                        <h6 id="time" class="row space"></h6>
+                        <h5 id="temp" class="row space"></h5>
+                        <h5 id="humidity" class="row space"></h5>
+                        <h5 id="wind-speed" class="row space"></h5>
+                        <div class="uv space">
+                            <h5 id="index-text"></h5>
+                            <p id="uv-index"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row less" id="five-days">
-                <h4>Five Day Forecast</h4>
+            <h4 class="five-day-header">Five Day Forecast</h4>
+            <div class="box">
+                <div class="row less" id="five-days">
+                </div>
+                <div></div>
             </div>
         </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
