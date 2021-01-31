@@ -19,7 +19,6 @@ let formHandler = function(event) {
         getCityForecast(cityName);
         $("#saved-cities").empty();
         saveCityName(cityName);
-        theClick();
         cityNameInput.value = "";
     } else {
         alert("Please enter a city name.");
@@ -120,31 +119,26 @@ let saveCityName = function(cityName) {
     restoreCityName();
 }
 
-let restoreCityName = function() {
+let restoreCityName = function () {
 
-    
-    let history = JSON.parse(localStorage.getItem("cities"));
+    let history = JSON.parse(localStorage.getItem("cities")) || [];
     console.log(history)
 
     for (i = 0; i < history.length; i++) {
-    
-        if (history[i]) {
-            newEl = document.createElement("div");
-            newEl.innerHTML = '<p class="history">' + history[i] + '</p><br>';
+
+        if (history[ i ]) {
+            newEl = document.createElement("p");
+            newEl.innerHTML = history[ i ];
             document.querySelector(".saved-cities").appendChild(newEl);
+            
+            newEl.addEventListener("click", function () {
+                let anchor = event.target.textContent;
+                getCityForecastAgain(anchor);
+                console.log(event.target.textContent)
+            })
         }
     }
-}
-
-let theClick = function() {
-    document.querySelector(".history").addEventListener("click", anchorFunction);
-}
-
-let anchorFunction = function() {
-    let anchor = document.querySelector(".history").value;
-    getCityForecastAgain(anchor);
-    console.log(anchor)
-    
+   
 }
 
 let getCityForecastAgain = function(anchor) {
