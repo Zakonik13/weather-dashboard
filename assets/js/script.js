@@ -62,7 +62,7 @@ let assignForecastData = function(data) {
     let currentHumidity = data.list[0].main.humidity;
     let currentWind = Math.floor(data.list[0].wind.speed);
     document.querySelector(".icon").innerHTML = 
-    "<img src='http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png' alt='Icon depicting current weather.'>";
+    "<img src='https://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png' alt='Icon depicting current weather.'>";
 
     document.getElementById("time").innerHTML =  moment().format("dddd, MMMM Do, h:mm a");
     document.getElementById("city").innerHTML = currentCity;
