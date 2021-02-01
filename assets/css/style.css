@@ -85,13 +85,14 @@ header {
     height: 150px;
 }
 
-.history {
+.saved-cities p {
     text-decoration: none;
     color: #808080;
 }
 
-.history:hover {
-    color: #2ed63c;
+.saved-cities p:hover {
+    color: #2e93d6;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1200px) {

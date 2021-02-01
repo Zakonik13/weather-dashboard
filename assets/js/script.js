@@ -5,6 +5,8 @@ let days = document.getElementById("five-days");
 let cityArray = [];
 let savedCities = document.querySelector("#saved-cities");
 
+localStorage.clear();
+
 // Capture search data from user with form handler
 let formHandler = function(event) {
     event.preventDefault();
@@ -125,7 +127,6 @@ let getFiveDays = function(data) {
 let saveCityName = function(cityName) {
     
     cityArray.push(cityName);
-    console.log(cityArray)
     localStorage.setItem("cities", JSON.stringify(cityArray));
     restoreCityName();
 }
@@ -133,7 +134,6 @@ let saveCityName = function(cityName) {
 let restoreCityName = function () {
 
     let history = JSON.parse(localStorage.getItem("cities")) || [];
-    console.log(history)
 
     for (i = 0; i < history.length; i++) {
 
@@ -146,7 +146,6 @@ let restoreCityName = function () {
                 days.innerHTML = "";
                 let anchor = event.target.textContent;
                 getCityForecast(anchor);
-                console.log(event.target.textContent)
             })
         }
     }
@@ -162,6 +161,3 @@ function defaultCity() {
 defaultCity();
 restoreCityName();
 submitBtn.addEventListener("click", formHandler);
-
-
-
