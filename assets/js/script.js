@@ -113,7 +113,7 @@ let getFiveDays = function(data) {
 
             fiveDays.innerHTML = 
             '<div class="col-2 five-day"><h6>' + moment(oneDay).format("ddd") +
-            '</h6><h6>' + "<img src='http://openweathermap.org/img/w/" +
+            '</h6><h6>' + "<img src='https://openweathermap.org/img/w/" +
             data.list[i].weather[0].icon + ".png' alt='Icon depicting current weather.'>" +
             '</h6><h6>' + "Temp: " + Math.floor((data.list[i].main.temp - 273) * 9 / 5 + 32) +
             '</h6><h6>' + "Humidity: " + data.list[i].main.humidity + '</h6></div>';
