@@ -26,7 +26,8 @@ let formHandler = function(event) {
 }
 
 // Use search data to show current and future conditions for the city searched, search is added to search history
-let getCityForecast = function(cityName) {
+let getCityForecast = function(cityName, anchor) {
+    if (cityName) {
     
     // format the url
     let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=407e110314c7d9e3802fdaecbeccde6f";
@@ -37,6 +38,16 @@ let getCityForecast = function(cityName) {
         assignForecastData(data);
         getUVIndex(data);
     });
+} else if (anchor) {
+    let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + anchor + "&appid=407e110314c7d9e3802fdaecbeccde6f";
+    // make a request to the url
+    fetch(apiUrl).then(function(response) {
+        return response.json()
+    }).then(function(data) {
+        assignForecastData(data);
+        getUVIndex(data);
+    });
+}
 }
 
 // Each city should show city name, date, icon rep of weather conditions, temp, humidity, wind speed, UV index
@@ -132,28 +143,15 @@ let restoreCityName = function () {
             document.querySelector(".saved-cities").appendChild(newEl);
             
             newEl.addEventListener("click", function () {
+                days.innerHTML = "";
                 let anchor = event.target.textContent;
-                getCityForecastAgain(anchor);
+                getCityForecast(anchor);
                 console.log(event.target.textContent)
             })
         }
     }
    
 }
-
-let getCityForecastAgain = function(anchor) {
-    
-    // format the url
-    let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + anchor + "&appid=407e110314c7d9e3802fdaecbeccde6f";
-    // make a request to the url
-    fetch(apiUrl).then(function(response) {
-        return response.json()
-    }).then(function(data) {
-        assignForecastData(data);
-        getUVIndex(data);
-    });
-}
-
 
 function defaultCity() {
     let cityName = "Boston";
